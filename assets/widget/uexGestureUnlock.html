@@ -34,6 +34,7 @@
 
     function createGesture(){
         var data={
+            promptStr:"1111",
             isNeedVerifyBeforeCreate:true
         }
         uexGestureUnlock.create(JSON.stringify(data),function(info){
@@ -44,7 +45,11 @@
         alert("result: "+uexGestureUnlock.isGestureCodeSet());
     }
     function verify(){
-      uexGestureUnlock.verify(function(info){
+
+        var date={
+            promptStr:"222"
+        }
+      uexGestureUnlock.verify(JSON.stringify(date),function(info){
             alert("verify result: "+JSON.stringify(info));
       });
     }

@@ -5,7 +5,7 @@
 
     <!--plugin_uexGestureUnlock use-->
     <string name="plugin_uexGestureUnlock_cancelCreationButtonTitle">取消设置手势密码</string>
-    <string name="plugin_uexGestureUnlock_cancelVerificationButtonTitle">忘记密码?</string>
+    <string name="plugin_uexGestureUnlock_cancelVerificationButtonTitle">忘记手势密码?</string>
     <string name="plugin_uexGestureUnlock_restartCreationButtonTitle">重新设置手势密码</string>
     <string name="plugin_uexGestureUnlock_codeLengthErrorPrompt">请至少连续绘制%d个点</string>
     <string name="plugin_uexGestureUnlock_checkErrorPrompt">与首次绘制不一致，请再次绘制</string>

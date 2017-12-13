@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.zywx.wbpalmstar.base.BUtility;
 import org.zywx.wbpalmstar.engine.DataHelper;
 import org.zywx.wbpalmstar.engine.EBrowserView;
@@ -34,6 +36,7 @@ public class EUExGestureUnlock extends EUExBase {
     private GestureCreateFragment mGestureCreateFragment;
     private SharedPreferences mPres;
     private ConfigGestureVO mData;
+    public static String dialogMessage;
 
     public EUExGestureUnlock(Context context, EBrowserView eBrowserView) {
         super(context, eBrowserView);
@@ -80,9 +83,18 @@ public class EUExGestureUnlock extends EUExBase {
 
     public void verify(String[] params) {
         int callbackId=-1;
-        if (params!=null&&params.length>0){
+        if(params!=null&&params.length==2){
+            try {
+                dialogMessage=new JSONObject(params[0]).optString("promptStr","");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            callbackId= Integer.parseInt(params[1]);
+        }else if (params!=null&&params.length>0){
             callbackId= Integer.parseInt(params[0]);
         }
+
+
         final String gestureCode = getGestureData();
         if (TextUtils.isEmpty(gestureCode)){
             ResultFailedVO result = new ResultFailedVO();
@@ -101,6 +113,7 @@ public class EUExGestureUnlock extends EUExBase {
             CreateGestureVO dataVO = DataHelper.gson.fromJson(params[0], CreateGestureVO.class);
             if(dataVO != null){
                 isNeedVerifyBeforeCreate = dataVO.isNeedVerifyBeforeCreate();
+                dialogMessage=dataVO.getPromptStr();
             }
         }
         int callbackId=-1;

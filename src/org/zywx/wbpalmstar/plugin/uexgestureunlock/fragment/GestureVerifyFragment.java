@@ -15,8 +15,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.phone.alertdialogtheam.AlertDialog;
+
 import org.zywx.wbpalmstar.base.BUtility;
 import org.zywx.wbpalmstar.engine.universalex.EUExUtil;
+import org.zywx.wbpalmstar.plugin.uexgestureunlock.EUExGestureUnlock;
 import org.zywx.wbpalmstar.plugin.uexgestureunlock.EUExGestureUnlock.GestureVerifyListener;
 import org.zywx.wbpalmstar.plugin.uexgestureunlock.JsConst;
 import org.zywx.wbpalmstar.plugin.uexgestureunlock.util.GestureUtil;
@@ -185,11 +188,38 @@ public class GestureVerifyFragment extends GestureBaseFragment implements OnClic
     public void onClick(View v) {
         if (v.getId() == EUExUtil
                 .getResIdID("plugin_uexGestureUnlock_text_forget_gesture")){
-            if (mListener != null){
-                mListener.onCancel();
-            }
+
+            showDialog();
+
         }
     }
+
+    private void showDialog() {
+
+        String messageinfo= EUExGestureUnlock.dialogMessage;
+        if("".equals(messageinfo)||null==messageinfo){
+            messageinfo="是否忘记手势密码?";
+        }
+        new AlertDialog(getContext()).builder()
+                .setTitle("关闭提示")
+                .setMsg(messageinfo)
+                .setCancelable(false)
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mListener != null){
+                            mListener.onCancel();
+                        }
+                        //
+                    }
+                }).setNegativeButton("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        }).show();
+    }
+
 
     public void setGestureVerifyListener(GestureVerifyListener listener) {
         this.mListener = listener;
