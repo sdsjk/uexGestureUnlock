@@ -95,6 +95,7 @@ public class EUExGestureUnlock extends EUExBase {
         bd.putStringArray(BUNDLE_DATA, params);
         msg.setData(bd);
         mHandler.sendMessage(msg);
+
     }
 
     private void configMsg(String[] params) {
@@ -102,17 +103,19 @@ public class EUExGestureUnlock extends EUExBase {
         if (TextUtils.isEmpty(json)) return;
         mData = DataHelper.gson.fromJson(json, ConfigGestureVO.class);
         if (!TextUtils.isEmpty(mData.getBackgroundImage())){
-            String path = BUtility.makeRealPath(
-                    BUtility.makeUrl(mBrwView.getCurrentUrl(), mData.getBackgroundImage()),
-                    mBrwView.getCurrentWidget().m_widgetPath,
-                    mBrwView.getCurrentWidget().m_wgtType);
+//            String path = BUtility.makeRealPath(
+//                    BUtility.makeUrl(mBrwView.getCurrentUrl(), mData.getBackgroundImage()),
+//                    mBrwView.getCurrentWidget().m_widgetPath,
+//                    mBrwView.getCurrentWidget().m_wgtType);
+            String path = BUtility.makeRealPath(mData.getBackgroundImage(),mBrwView);
             mData.setBackgroundImage(path);
         }
         if (!TextUtils.isEmpty(mData.getIconImage())){
-            String path = BUtility.makeRealPath(
-                    BUtility.makeUrl(mBrwView.getCurrentUrl(), mData.getIconImage()),
-                    mBrwView.getCurrentWidget().m_widgetPath,
-                    mBrwView.getCurrentWidget().m_wgtType);
+//            String path = BUtility.makeRealPath(
+//                    BUtility.makeUrl(mBrwView.getCurrentUrl(), mData.getIconImage()),
+//                    mBrwView.getCurrentWidget().m_widgetPath,
+//                    mBrwView.getCurrentWidget().m_wgtType);
+            String path = BUtility.makeRealPath(mData.getIconImage(),mBrwView);
             mData.setIconImage(path);
         }
     }
